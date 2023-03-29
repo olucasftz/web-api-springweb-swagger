@@ -1,5 +1,7 @@
 package com.firstwebapi.repository;
 
+import com.firstwebapi.handler.BusinessException;
+import com.firstwebapi.handler.FieldMandatoryException;
 import com.firstwebapi.model.User;
 import org.springframework.stereotype.Repository;
 
@@ -9,6 +11,12 @@ import java.util.List;
 @Repository
 public class UserRepository {
     public void save(User user){
+        if(user.getLogin()==null )
+            throw new FieldMandatoryException("login");
+
+        if(user.getPassword()==null)
+            throw new FieldMandatoryException("password");
+
         if(user.getId()==null)
             System.out.println("SAVE - Getting the user in the repository layer");
         else
